@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="1st.peter mathias • Full-Stack Architect, Ethical Hacker & Digital Alchemist" />
+  <title>1st.peter mathias • dev(Nelly)</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Particles.js -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+  <!-- Vanilla Tilt.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js" integrity="sha512-K9tDZvc8nQXR1DMuT97sct9f40dilGp97vx7EXjswJA+/mKqJZ8vcZLifZDP+9t08osMLuiIjd4jZ0SM011Q+w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <style>
+    :root {
+      --accent: #a78bfa;
+      --accent-glow: #c4b5fd;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #050507;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    .mono { font-family: 'JetBrains Mono', monospace; }
+
+    #particles-js {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: #050507;
+    }
+
+    @keyframes neonPulse {
+      0%, 100% { box-shadow: 0 0 15px #a78bfa, 0 0 30px #a78bfa; }
+      50% { box-shadow: 0 0 25px #c4b5fd, 0 0 50px #c4b5fd; }
+    }
+
+    .avatar-neon { animation: neonPulse 3.5s ease-in-out infinite; }
+
+    .glitch {
+      position: relative;
+      display: inline-block;
+    }
+
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.85;
+    }
+
+    .glitch::before {
+      color: #67e8f9;
+      left: 2px;
+      text-shadow: -2px 0 #f472b6;
+      animation: glitch-anim 2.8s infinite linear alternate-reverse;
+    }
+
+    .glitch::after {
+      color: #f472b6;
+      left: -2px;
+      text-shadow: 2px 0 #67e8f9;
+      animation: glitch-anim2 2.2s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitch-anim {
+      0% { clip: rect(42px, 9999px, 44px, 0); transform: skew(0.6deg); }
+      5% { clip: rect(17px, 9999px, 59px, 0); transform: skew(0.4deg); }
+      10% { clip: rect(63px, 9999px, 119px, 0); transform: skew(0.2deg); }
+      100% { clip: rect(65px, 9999px, 119px, 0); transform: skew(0.3deg); }
+    }
+
+    @keyframes glitch-anim2 {
+      0% { clip: rect(65px, 9999px, 119px, 0); transform: skew(0.8deg); }
+      5% { clip: rect(76px, 9999px, 52px, 0); transform: skew(0.9deg); }
+      100% { clip: rect(91px, 9999px, 98px, 0); transform: skew(0.5deg); }
+    }
+
+    .link-card {
+      position: relative;
+      overflow: hidden;
+      will-change: transform;
+      transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .link-card::after {
+      content: '';
+      position: absolute;
+      inset: -50% -100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+      transform: skewX(-25deg);
+      transition: left 0.75s ease;
+    }
+
+    .link-card:hover::after { left: 200%; }
+
+    .spotify-now {
+      background: rgba(30, 30, 40, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(167, 139, 250, 0.3);
+      border-radius: 20px;
+    }
+
+    .toast {
+      animation: toastPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes toastPop {
+      0% { transform: translateY(40px) scale(0.85); opacity: 0; }
+      100% { transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    @media (max-width: 480px) {
+      h1.profile-name { font-size: 2.75rem; }
+      .link-card { padding: 1.25rem 1rem; }
+    }
+
+    @media (min-width: 640px) {
+      .container { max-width: 480px; }
+    }
+  </style>
+</head>
+<body class="min-h-screen relative">
+
+  <!-- Particles Background -->
+  <div id="particles-js"></div>
+
+  <div class="container relative z-10 max-w-[440px] mx-auto p-6 sm:p-8">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-8">
+      <div class="flex items-center gap-3">
+        <div class="w-3 h-3 bg-[#a78bfa] rounded-full animate-pulse"></div>
+        <span class="mono text-xs tracking-widest text-[#a78bfa]">1st.PETER MATHIAS.DEV</span>
+      </div>
+      <button onclick="copyProfileLink()"
+              class="flex items-center gap-2 px-6 py-3 bg-[#1a1a1f]/80 hover:bg-[#27272f] border border-[#a78bfa]/40 rounded-2xl text-sm transition-all active:scale-95 backdrop-blur-sm">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16v-4m4 4v4m4-8v8m4-4v-4m-16 4h16" />
+        </svg>
+        <span class="mono text-xs">COPY LINK</span>
+      </button>
+    </div>
+
+    <!-- Profile -->
+    <div class="flex flex-col items-center text-center mb-10">
+      <div class="relative mb-6">
+        <div class="w-32 h-32 sm:w-36 sm:h-36 rounded-3xl overflow-hidden ring-4 ring-[#a78bfa]/70 ring-offset-4 ring-offset-[#050507] avatar-neon transition-transform hover:scale-105">
+          <img id="avatar"
+               src="https://res.cloudinary.com/dkfsr0g6x/image/upload/v1768987890/IMG_0933_aemheb.jpg"
+               alt="1st.peter mathias profile photo"
+               class="w-full h-full object-cover"
+               onerror="this.src='https://picsum.photos/seed/steady/400/400';">
+        </div>
+        <div class="absolute -bottom-2 -right-2 bg-[#050507] text-[#a78bfa] text-xs mono px-4 py-1 rounded-2xl border border-[#a78bfa]/50 flex items-center gap-2 shadow-xl">
+          <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div> ONLINE
+        </div>
+      </div>
+
+      <h1 data-text="1st.peter"
+          class="glitch mono text-5xl sm:text-6xl font-black tracking-tighter bg-gradient-to-r from-[#c4b5fd] via-[#a78bfa] to-[#e0e7ff] bg-clip-text text-transparent profile-name">
+        1st.peter
+      </h1>
+      <p class="mono text-[#67e8f9] text-base tracking-[4px] mt-1">FULL-STACK ARCHITECT</p>
+
+      <div class="mt-7 max-w-xs text-[#94a3b8] text-[15px] leading-relaxed">
+        Digital alchemist. Web sorcerer. Script ninja.<br>
+        Email-flow warlord &amp; Ethical shadow-walker (cybersecurity &amp; red-team vibes).<br><br>
+        I speak fluently: <span class="text-[#c4b5fd]">HTML • CSS • JavaScript • Python • PHP • Go</span><br><br>
+        I break things professionally, build things obsessively
+      </div>
+    </div>
+
+    <!-- Spotify Now Playing -->
+    <div class="spotify-now flex items-center gap-5 p-5 mb-10 transition-all hover:-translate-y-1">
+      <div class="flex-shrink-0">
+        <img id="spotify-art" src="https://i.scdn.co/image/ab67616d0000b273e3e3b64aa5f221a8b9e8af00"
+             alt="Album cover"
+             class="w-20 h-20 rounded-2xl shadow-2xl object-cover">
+      </div>
+      <div class="flex-1 min-w-0">
+        <div class="text-xs text-[#a78bfa] mono uppercase tracking-wider mb-1">NOW PLAYING</div>
+        <div id="spotify-title" class="font-medium text-xl truncate">Nothing playing right now</div>
+        <div id="spotify-artist" class="text-sm text-[#94a3b8] truncate">—</div>
+      </div>
+      <div class="text-[#a78bfa] text-3xl animate-pulse">♪</div>
+    </div>
+
+    <!-- ALL SOCIAL LINKS -->
+    <div class="space-y-5">
+
+      <!-- GitHub -->
+      <a href="https://github.com/yourusername" target="_blank" class="link-card block bg-[#121217]/80 border border-[#a78bfa]/30 hover:border-[#a78bfa] rounded-3xl px-7 py-6 backdrop-blur-md" data-tilt data-tilt-max="14" data-tilt-speed="450" data-tilt-glare="true" data-tilt-max-glare="0.35">
+        <div class="flex items-center gap-5">
+          <svg class="w-8 h-8 text-[#a78bfa]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          <div class="flex-1">
+            <div class="font-medium text-xl">GitHub</div>
+            <div class="text-sm text-[#64748b]">Open source • explore repos</div>
+          </div>
+          <span class="text-[#a78bfa] text-2xl transition-transform group-hover:translate-x-1">→</span>
+        </div>
+      </a>
+
+      <!-- X / Twitter -->
+      <a href="https://x.com/yourhandle" target="_blank" class="link-card block bg-[#121217]/80 border border-[#a78bfa]/30 hover:border-[#a78bfa] rounded-3xl px-7 py-6 backdrop-blur-md" data-tilt data-tilt-max="14" data-tilt-speed="450" data-tilt-glare="true" data-tilt-max-glare="0.35">
+        <div class="flex items-center gap-5">
+          <span class="text-4xl">𝕏</span>
+          <div class="flex-1">
+            <div class="font-medium text-xl">X / Twitter</div>
+            <div class="text-sm text-[#64748b]">Daily thoughts &amp; tech</div>
+          </div>
+          <span class="text-[#a78bfa] text-2xl transition-transform group-hover:translate-x-1">→</span>
+        </div>
+      </a>
+
+      <!-- LinkedIn -->
+      <a href="https://linkedin.com/in/yourname" target="_blank" class="link-card block bg-[#121217]/80 border border-[#a78bfa]/30 hover:border-[#a78bfa] rounded-3xl px-7 py-6 backdrop-blur-md" data-tilt data-tilt-max="14" data-tilt-speed="450" data-tilt-glare="true" data-tilt-max-glare="0.35">
+        <div class="flex items-center gap-5">
+          <svg class="w-8 h-8" fill="#0a66c2" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.784 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v7.759z"/></svg>
+          <div class="flex-1">
+            <div class="font-medium text-xl">LinkedIn</div>
+            <div class="text-sm text-[#64748b]">Professional network</div>
+          </div>
+          <span class="text-[#a78bfa] text-2xl transition-transform group-hover:translate-x-1">→</span>
+        </div>
+      </a>
+
+      <!-- Portfolio -->
+      <a href="https://your-portfolio.com" target="_blank" class="link-card block bg-[#121217]/80 border border-[#a78bfa]/30 hover:border-[#a78bfa] rounded-3xl px-7 py-6 backdrop-blur-md" data-tilt data-tilt-max="14" data-tilt-speed="450" data-tilt-glare="true" data-tilt-max-glare="0.35">
+        <div class="flex items-center gap-5">
+          <svg class="w-8 h-8 text-[#a78bfa]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 4.01V8" /></svg>
+          <div class="flex-1">
+            <div class="font-medium text-xl">Portfolio</div>
+            <div class="text-sm text-[#64748b]">Live projects &amp; case studies</div>
+          </div>
+          <span class="text-[#a78bfa] text-2xl transition-transform group-hover:translate-x-1">→</span>
+        </div>
+      </a>
+
+      <!-- DEV.to / Blog -->
+      <a href="https://dev.to/yourusername" target="_blank" class="link-card block bg-[#121217]/80 border border-[#a78bfa]/30 hover:border-[#a78bfa] rounded-3xl px-7 py-6 backdrop-blur-md" data-tilt data-tilt-max="14" data-tilt-speed="450" data-tilt-glare="true" data-tilt-max-glare="0.35">
+        <div class="flex items-center gap-5">
+          <span class="text-4xl">📝</span>
+          <div class="flex-1">
+            <div class="font-medium text-xl">Blog / DEV.to</div>
+            <div class="text-sm text-[#64748b]">Deep dives &amp; tutorials</div>
+          </div>
+          <span class="text-[#a78bfa] text-2xl transition-transform group-hover:translate-x-1">→</span>
+        </div>
+      </a>
+
+      <!-- Discord -->
+      <a href="https://discord.gg/yourserver" target="_blank" class="link-card block bg-[#121217]/80 border border-[#a78bfa]/30 hover:border-[#a78bfa] rounded-3xl px-7 py-6 backdrop-blur-md" data-tilt data-tilt-max="14" data-tilt-speed="450" data-tilt-glare="true" data-tilt-max-glare="0.35">
+        <div class="flex items-center gap-5">
+          <span class="text-4xl">💬</span>
+          <div class="flex-1">
+            <div class="font-medium text-xl">Discord Community</div>
+            <div class="text-sm text-[#64748b]">Join the squad</div>
+          </div>
+          <span class="text-[#a78bfa] text-2xl transition-transform group-hover:translate-x-1">→</span>
+        </div>
+      </a>
+
+      <!-- YouTube -->
+      <a href="https://youtube.com/@yourchannel" target="_blank" class="link-card block bg-[#121217]/80 border border-[#a78bfa]/30 hover:border-[#a78bfa] rounded-3xl px-7 py-6 backdrop-blur-md" data-tilt data-tilt-max="14" data-tilt-speed="450" data-tilt-glare="true" data-tilt-max-glare="0.35">
+        <div class="flex items-center gap-5">
+          <span class="text-4xl">▶️</span>
+          <div class="flex-1">
+            <div class="font-medium text-xl">YouTube</div>
+            <div class="text-sm text-[#64748b]">Tutorials &amp; live coding</div>
+          </div>
+          <span class="text-[#a78bfa] text-2xl transition-transform group-hover:translate-x-1">→</span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Extra (Email) -->
+    <div class="mt-12 text-center">
+      <p class="text-sm text-[#64748b] mb-4 mono uppercase tracking-wider">MORE WAYS TO CONNECT</p>
+      <a href="mailto:you@email.com" 
+         class="link-card block bg-[#121217]/80 border border-[#a78bfa]/30 hover:border-[#a78bfa] rounded-3xl px-7 py-6 backdrop-blur-md inline-flex items-center gap-5 w-full max-w-[440px]" data-tilt data-tilt-max="14" data-tilt-speed="450" data-tilt-glare="true" data-tilt-max-glare="0.35">
+        <span class="text-4xl">✉️</span>
+        <div class="flex-1 text-left">
+          <div class="font-medium text-xl">Email</div>
+          <div class="text-sm text-[#64748b]">Direct message</div>
+        </div>
+        <span class="text-[#a78bfa] text-2xl transition-transform group-hover:translate-x-1">→</span>
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-16 text-center text-[#475569] text-xs mono">
+      <div class="flex items-center justify-center gap-3">
+        <span>BUILT IN ABUJA</span>
+        <span class="text-[#a78bfa]">2026</span>
+      </div>
+      <p class="mt-2 hover:text-[#a78bfa] transition-colors">neon • particles • tilt • spotify</p>
+    </div>
+
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="hidden fixed bottom-10 left-1/2 -translate-x-1/2 bg-[#1a1a1f]/90 text-[#a78bfa] px-8 py-4 rounded-3xl shadow-2xl flex items-center gap-3 border border-[#a78bfa]/40 backdrop-blur-lg z-50">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+    </svg>
+    <span id="toast-text" class="mono text-sm">Link copied to clipboard!</span>
+  </div>
+
+  <script>
+    // Particles
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 80, density: { enable: true, value_area: 800 } },
+        color: { value: ["#a78bfa", "#c4b5fd", "#67e8f9"] },
+        shape: { type: "circle" },
+        opacity: { value: 0.5, random: true },
+        size: { value: 3, random: true },
+        line_linked: { enable: true, distance: 150, color: "#a78bfa", opacity: 0.3, width: 1 },
+        move: { enable: true, speed: 2, direction: "none", random: true, straight: false, out_mode: "out" }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" }, resize: true },
+        modes: { grab: { distance: 140, line_linked: { opacity: 0.7 } }, push: { particles_nb: 4 } }
+      },
+      retina_detect: true
+    });
+
+    // Tilt on all cards
+    VanillaTilt.init(document.querySelectorAll(".link-card"), {
+      max: 14,
+      speed: 450,
+      glare: true,
+      "max-glare": 0.35,
+      perspective: 1000,
+      scale: 1.03,
+      gyroscope: true,
+      reset: true
+    });
+
+    // Spotify (paste token for live data)
+    const SPOTIFY_TOKEN = ''; // ← paste your Bearer token here
+
+    async function updateSpotify() {
+      const title = document.getElementById('spotify-title');
+      const artist = document.getElementById('spotify-artist');
+      const art = document.getElementById('spotify-art');
+
+      if (!SPOTIFY_TOKEN) return;
+
+      try {
+        const res = await fetch('https://api.spotify.com/v1/me/player/currently-playing', {
+          headers: { 'Authorization': `Bearer ${SPOTIFY_TOKEN}` }
+        });
+
+        if (res.status === 204 || !res.ok) {
+          title.textContent = "Nothing playing right now";
+          artist.textContent = "—";
+          return;
+        }
+
+        const data = await res.json();
+        if (data?.item) {
+          title.textContent = data.item.name;
+          artist.textContent = data.item.artists.map(a => a.name).join(', ');
+          if (data.item.album?.images?.[0]?.url) art.src = data.item.album.images[0].url;
+        }
+      } catch (err) {
+        title.textContent = "Spotify unavailable";
+        artist.textContent = "—";
+      }
+    }
+
+    setInterval(updateSpotify, 30000);
+    updateSpotify();
+
+    // Copy link
+    function copyProfileLink() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        const toast = document.getElementById('toast');
+        document.getElementById('toast-text').textContent = 'Profile link copied!';
+        toast.classList.remove('hidden');
+        setTimeout(() => toast.classList.add('hidden'), 3200);
+      });
+    }
+
+    document.addEventListener('keydown', e => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        copyProfileLink();
+      }
+    });
+
+    // Entrance animation + avatar spin
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.link-card').forEach((card, i) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(40px)';
+        setTimeout(() => {
+          card.style.transition = `all 0.75s cubic-bezier(0.23,1,0.32,1) ${i * 90}ms`;
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, 600);
+      });
+
+      document.getElementById('avatar')?.addEventListener('click', function() {
+        this.style.transition = 'transform 0.6s ease';
+        this.style.transform = 'rotate(360deg)';
+        setTimeout(() => this.style.transform = 'rotate(0deg)', 650);
+      });
+    });
+  </script>
+</body>
+</html>
